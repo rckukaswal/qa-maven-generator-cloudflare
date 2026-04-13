@@ -1,0 +1,4 @@
+name = "qa"
+main = "src/worker.js"
+compatibility_date = "2026-04-14"
+workers_dev = true
