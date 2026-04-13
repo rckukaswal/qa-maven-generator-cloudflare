@@ -4,5 +4,3 @@ workers_dev = true
 
 [assets]
 directory = "./site"
-binding = "ASSETS"
-not_found_handling = "single-page-application"
