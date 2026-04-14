@@ -20,7 +20,7 @@ cleanup() {
 }
 trap cleanup EXIT
 
-git clone --depth 1 https://github.com/rckukaswal/qa-maven-generator-cloudflare.git "$TEMP_DIR"
+git clone --depth 1 "https://github.com/rckukaswal/qa-maven-generator-cloudflare.git" "$TEMP_DIR" </dev/null
 
 echo ""
 echo "✅ Scripts downloaded successfully"
