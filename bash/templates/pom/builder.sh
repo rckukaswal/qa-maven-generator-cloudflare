@@ -1,9 +1,10 @@
 #!/bin/bash
+BASE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 
-source <(curl -fsSL "$BASE_URL/templates/pom/versions.sh")
-source <(curl -fsSL "$BASE_URL/templates/pom/dependencies.sh")
-source <(curl -fsSL "$BASE_URL/templates/pom/plugins.sh")
-source <(curl -fsSL "$BASE_URL/templates/pom/render.sh")
+source "$BASE_DIR/templates/pom/versions.sh"
+source "$BASE_DIR/templates/pom/dependencies.sh"
+source "$BASE_DIR/templates/pom/plugins.sh"
+source "$BASE_DIR/templates/pom/render.sh"
 
 properties=""
 dependencies=""
