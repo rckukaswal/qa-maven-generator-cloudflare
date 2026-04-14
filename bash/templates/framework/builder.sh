@@ -12,29 +12,35 @@ build_framework() {
     log_step "Building Framework [$level]"
 
     # Source all template files
-    source <(curl -fsSL "$BASE_URL/templates/framework/src/main/java/factory/driver_factory.sh")
-    source <(curl -fsSL "$BASE_URL/templates/framework/src/main/java/pages/base_page.sh")
-    source <(curl -fsSL "$BASE_URL/templates/framework/src/main/java/pages/app_page.sh")
-    source <(curl -fsSL "$BASE_URL/templates/framework/src/main/java/utils/log_utils.sh")
-    source <(curl -fsSL "$BASE_URL/templates/framework/src/main/java/utils/wait_utils.sh")
-    source <(curl -fsSL "$BASE_URL/templates/framework/src/main/java/utils/screenshot_utils.sh")
-    source <(curl -fsSL "$BASE_URL/templates/framework/src/main/java/utils/extent_manager.sh")
-    source <(curl -fsSL "$BASE_URL/templates/framework/src/main/java/utils/excel_utils.sh")
-    source <(curl -fsSL "$BASE_URL/templates/framework/src/test/java/base/base_test.sh")
-    source <(curl -fsSL "$BASE_URL/templates/framework/src/test/java/tests/app_test.sh")
-    source <(curl -fsSL "$BASE_URL/templates/framework/src/test/java/listeners/test_listener.sh")
-    source <(curl -fsSL "$BASE_URL/templates/framework/src/test/resources/suites/smoke_suite_xml.sh")
-    source <(curl -fsSL "$BASE_URL/templates/framework/src/test/resources/suites/regression_suite_xml.sh")
-    source <(curl -fsSL "$BASE_URL/templates/framework/src/test/resources/suites/cross_browser_xml.sh")
-    source <(curl -fsSL "$BASE_URL/templates/framework/src/test/resources/data/test_config_properties.sh")
-    source <(curl -fsSL "$BASE_URL/templates/framework/src/test/resources/data/testdata_excel.sh")
-    source <(curl -fsSL "$BASE_URL/templates/framework/src/test/resources/data/testdata_json.sh")
-    source <(curl -fsSL "$BASE_URL/templates/framework/src/test/resources/data/users_csv.sh")
-    source <(curl -fsSL "$BASE_URL/templates/framework/src/main/resources/config_properties.sh")
-    source <(curl -fsSL "$BASE_URL/templates/framework/src/main/resources/log4j2_xml.sh")
-    source <(curl -fsSL "$BASE_URL/templates/framework/src/main/resources/locators_json.sh")
-    source <(curl -fsSL "$BASE_URL/templates/framework/src/main/resources/env_properties.sh")
-    source <(curl -fsSL "$BASE_URL/templates/framework/src/main/resources/messages_properties.sh")
+   source "$BASE_DIR/templates/framework/src/main/java/factory/driver_factory.sh"
+source "$BASE_DIR/templates/framework/src/main/java/pages/base_page.sh"
+source "$BASE_DIR/templates/framework/src/main/java/pages/app_page.sh"
+source "$BASE_DIR/templates/framework/src/main/java/utils/log_utils.sh"
+source "$BASE_DIR/templates/framework/src/main/java/utils/wait_utils.sh"
+source "$BASE_DIR/templates/framework/src/main/java/utils/screenshot_utils.sh"
+source "$BASE_DIR/templates/framework/src/main/java/utils/extent_manager.sh"
+source "$BASE_DIR/templates/framework/src/main/java/utils/excel_utils.sh"
+
+source "$BASE_DIR/templates/framework/src/test/java/base/base_test.sh"
+source "$BASE_DIR/templates/framework/src/test/java/tests/app_test.sh"
+source "$BASE_DIR/templates/framework/src/test/java/listeners/test_listener.sh"
+
+source "$BASE_DIR/templates/framework/src/test/resources/suites/smoke_suite_xml.sh"
+source "$BASE_DIR/templates/framework/src/test/resources/suites/regression_suite_xml.sh"
+source "$BASE_DIR/templates/framework/src/test/resources/suites/cross_browser_xml.sh"
+
+source "$BASE_DIR/templates/framework/src/test/resources/data/test_config_properties.sh"
+source "$BASE_DIR/templates/framework/src/test/resources/data/testdata_excel.sh"
+source "$BASE_DIR/templates/framework/src/test/resources/data/testdata_json.sh"
+source "$BASE_DIR/templates/framework/src/test/resources/data/users_csv.sh"
+
+source "$BASE_DIR/templates/framework/src/main/resources/config_properties.sh"
+source "$BASE_DIR/templates/framework/src/main/resources/log4j2_xml.sh"
+source "$BASE_DIR/templates/framework/src/main/resources/locators_json.sh"
+source "$BASE_DIR/templates/framework/src/main/resources/env_properties.sh"
+source "$BASE_DIR/templates/framework/src/main/resources/messages_properties.sh"
+
+
 
     create_framework_folders "$project_dir" "$package_path"
     generate_framework_files "$project_dir" "$package_path" "$level"
