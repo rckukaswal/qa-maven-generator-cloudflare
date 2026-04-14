@@ -13,10 +13,17 @@ echo "⏳ Please wait, loading scripts from GitHub..."
 echo "   This may take a few seconds depending on your internet speed."
 echo ""
 
-export BASE_URL="https://qa.ramchandrakukaswal.workers.dev/bash"
+TEMP_DIR=$(mktemp -d)
 
-source <(curl -fsSL "$BASE_URL/lib/helpers.sh")
-source <(curl -fsSL "$BASE_URL/lib/logger.sh")
+cleanup() {
+    rm -rf "$TEMP_DIR"
+}
+trap cleanup EXIT
 
-log_info "Initializing generator..."
-source <(curl -fsSL "$BASE_URL/scripts/main.sh")
+git clone --depth 1 https://github.com/qalabtools/mvngen.git "$TEMP_DIR"
+
+echo ""
+echo "✅ Scripts downloaded successfully"
+echo ""
+
+bash "$TEMP_DIR/bash/scripts/main.sh"

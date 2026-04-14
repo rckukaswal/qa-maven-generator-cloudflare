@@ -1,30 +1,30 @@
 #!/bin/bash
 set -e
 
-export BASE_URL="https://qa.ramchandrakukaswal.workers.dev/bash"
+BASE_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 
 # Common
-source <(curl -fsSL "$BASE_URL/lib/helpers.sh")
-source <(curl -fsSL "$BASE_URL/lib/logger.sh")
+source "$BASE_DIR/lib/helpers.sh"
+source "$BASE_DIR/lib/logger.sh"
 
 # Input
-source <(curl -fsSL "$BASE_URL/scripts/input.sh")
+source "$BASE_DIR/scripts/input.sh"
 
 # Run input
 collect_user_input
 
 # Dynamic Config
-source <(curl -fsSL "$BASE_URL/config/$LEVEL.config")
+source "$BASE_DIR/config/$LEVEL.config"
 
 # Setup
-source <(curl -fsSL "$BASE_URL/setup/java.sh")
-source <(curl -fsSL "$BASE_URL/setup/maven.sh")
-source <(curl -fsSL "$BASE_URL/setup/git.sh")
+source "$BASE_DIR/setup/java.sh"
+source "$BASE_DIR/setup/maven.sh"
+source "$BASE_DIR/setup/git.sh"
 
 # Templates / Generator
-source <(curl -fsSL "$BASE_URL/templates/pom/builder.sh")
-source <(curl -fsSL "$BASE_URL/templates/framework/builder.sh")
-source <(curl -fsSL "$BASE_URL/templates/testng/testng.sh")
+source "$BASE_DIR/templates/pom/builder.sh"
+source "$BASE_DIR/templates/framework/builder.sh"
+source "$BASE_DIR/templates/testng/testng.sh"
 
 log_step "Starting Maven Project Generation"
 
@@ -52,11 +52,14 @@ echo "   mvn test"
 echo ""
 echo "Available Suites:"
 echo "   mvn test -DsuiteXmlFile=testng.xml"
+
 if [[ "$LEVEL" == "intermediate" || "$LEVEL" == "advanced" ]]; then
     echo "   mvn test -DsuiteXmlFile=src/test/resources/suites/smoke.xml"
     echo "   mvn test -DsuiteXmlFile=src/test/resources/suites/regression.xml"
 fi
+
 if [[ "$LEVEL" == "advanced" ]]; then
     echo "   mvn test -DsuiteXmlFile=src/test/resources/suites/cross_browser.xml"
 fi
+
 echo ""
