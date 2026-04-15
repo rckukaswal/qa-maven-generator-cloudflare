@@ -47,20 +47,26 @@ select_option() {
     local RESET='\033[0m'
     local BLUE='\033[0;34m'
     local DIM='\033[2m'
-
-    echo ""
-    echo -e "  ${BOLD}${BLUE}▶  ${WHITE}${prompt}${RESET}"
-    echo -e "  ${DIM}$(printf '─%.0s' {1..36})${RESET}"
-
-    for i in "${!options[@]}"; do
-        if [[ $i -eq $selected ]]; then
-            printf "${CYAN}${BOLD}❯ %s${RESET}\n" "${options[$i]}" >&2
-        else
-            printf "  %s\n" "${options[$i]}" >&2
-        fi
-    done
+    local WHITE='\033[1;37m'
 
     while true; do
+        # redraw full block
+        for ((i=0; i<lines+2; i++)); do
+            tput cuu1 >&2 2>/dev/null || true
+            tput el >&2
+        done
+
+        echo -e "  ${BOLD}${BLUE}▶  ${WHITE}${prompt}${RESET}" >&2
+        echo -e "  ${DIM}$(printf '─%.0s' {1..36})${RESET}" >&2
+
+        for i in "${!options[@]}"; do
+            if [[ $i -eq $selected ]]; then
+                printf "${CYAN}${BOLD}❯ %s${RESET}\n" "${options[$i]}" >&2
+            else
+                printf "  %s\n" "${options[$i]}" >&2
+            fi
+        done
+
         read -rsn1 key </dev/tty
 
         case "$key" in
@@ -76,19 +82,6 @@ select_option() {
                         [[ $selected -ge ${#options[@]} ]] && selected=0
                         ;;
                 esac
-
-                for ((i=0; i<lines; i++)); do
-                    tput cuu1 >&2
-                    tput el >&2
-                done
-
-                for i in "${!options[@]}"; do
-                    if [[ $i -eq $selected ]]; then
-                        printf "${CYAN}${BOLD}❯ %s${RESET}\n" "${options[$i]}" >&2
-                    else
-                        printf "  %s\n" "${options[$i]}" >&2
-                    fi
-                done
                 ;;
             "")
                 printf '%s\n' "${options[$selected]}"
