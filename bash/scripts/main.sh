@@ -47,10 +47,10 @@ ensure_git
 init_git_repo
 
 # Summary
-echo ""
-echo "  Level        : $LEVEL"
-echo "  Project Dir  : $base_dir/$project_name"
-echo ""
+log_step "Project Summary"
+
+printf "  %-14s : %s\n" "Level" "$LEVEL"
+printf "  %-14s : %s\n" "Project Dir" "$base_dir/$project_name"
 
 # Next Steps
 echo "Next Steps:"
