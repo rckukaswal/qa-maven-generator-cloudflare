@@ -65,7 +65,7 @@ collect_user_input() {
 log_step "Selected Configuration"
 
 echo "  ┌──────────────────────────────────────────┐"
-printf "  │ %-15s : %-28s │\n" "Level" "$LEVEL"
+printf "  │ %-12s : %-28s │\n" "Level" "$LEVEL"
 printf "  │ %-13s : %-28s │\n" "Base URL" "$TEST_URL"
 printf "  │ %-13s : %-28s │\n" "Project" "$project_name"
 printf "  │ %-13s : %-28s │\n" "Group ID" "$group_id"
