@@ -25,6 +25,7 @@ if git clone --depth 1 -q "$REPO_URL" "$TEMP_DIR" >/dev/null 2>&1; then
     rm -rf "$CACHE_DIR"
     mv "$TEMP_DIR" "$CACHE_DIR"
     log_success "Updated with fresh latest version"
+    echo ""
 else
     rm -rf "$TEMP_DIR"
     log_warning "No network / update failed"
