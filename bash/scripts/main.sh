@@ -25,10 +25,14 @@ source "$BASE_DIR/setup/git.sh"
 source "$BASE_DIR/templates/pom/builder.sh"
 source "$BASE_DIR/templates/framework/builder.sh"
 source "$BASE_DIR/templates/testng/testng.sh"
+source "$BASE_DIR/setup/gitignore.sh"
 
 log_step "Starting Maven Project Generation"
 
+create_gitignore
+
 # Environment Check
+
 check_java
 check_maven
 check_git
