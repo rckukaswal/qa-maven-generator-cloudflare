@@ -47,12 +47,11 @@ select_option() {
     local RESET='\033[0m'
 
     while true; do
-        for ((i=0; i<lines+1; i++)); do
-            tput cuu1 >&2
-            tput el >&2
-        done
+        tput sc >&2
 
-        printf "%s\n" "$prompt" >&2
+        printf "\n${BOLD}${BLUE}▶ %s${RESET}\n" "$prompt" >&2
+        printf "  ${DIM}$(printf '─%.0s' {1..36})${RESET}\n" >&2
+
         for i in "${!options[@]}"; do
             if [[ $i -eq $selected ]]; then
                 printf "${CYAN}${BOLD}❯ %s${RESET}\n" "${options[$i]}" >&2
@@ -62,18 +61,20 @@ select_option() {
         done
 
         read -rsn1 key </dev/tty
+
+        tput rc >&2
+        for ((i=0; i<lines+2; i++)); do
+            tput el >&2
+            tput cud1 >&2
+        done
+        tput rc >&2
+
         case "$key" in
             $'\x1b')
                 read -rsn2 key </dev/tty
                 case "$key" in
-                    "[A")
-                        ((selected--))
-                        [[ $selected -lt 0 ]] && selected=$((${#options[@]} - 1))
-                        ;;
-                    "[B")
-                        ((selected++))
-                        [[ $selected -ge ${#options[@]} ]] && selected=0
-                        ;;
+                    "[A") ((selected--)); [[ $selected -lt 0 ]] && selected=$((${#options[@]} - 1));;
+                    "[B") ((selected++)); [[ $selected -ge ${#options[@]} ]] && selected=0;;
                 esac
                 ;;
             "")
