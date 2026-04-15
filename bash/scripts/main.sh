@@ -39,6 +39,7 @@ create_gitignore
 
 log_success "Project '$project_name' generated successfully!"
 
+log_dim "Environment checks and setup in progress..."
 # Environment Check
 ensure_java 
 ensure_maven 

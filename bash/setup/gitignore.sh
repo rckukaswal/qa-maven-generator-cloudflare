@@ -10,7 +10,6 @@ create_gitignore() {
         return 0
     fi
 
-    log_step "Creating .gitignore"
 
     cat <<'EOL' > "$gitignore_file"
 # Maven build

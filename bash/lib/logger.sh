@@ -15,7 +15,7 @@ RESET='\033[0m'
 TICK="✔"
 CROSS="✖"
 ARROW="▶"
-INFO="➜"
+INFO="ℹ"
 WARN="⚠"
 DOT="•"
 
@@ -39,7 +39,7 @@ log_error() {
 log_step() {
     echo ""
     echo -e "  ${BOLD}${BLUE}${ARROW}  ${WHITE}$1${RESET}"
-    echo -e "  ${DIM}$(printf '─%.0s' {1..36})${RESET}"
+    echo -e "  ${DIM}$(printf '─%.0s' {1..42})${RESET}"
 }
 
 log_dim() {
