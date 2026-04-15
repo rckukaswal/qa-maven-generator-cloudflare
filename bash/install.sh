@@ -20,10 +20,16 @@ cleanup() {
 }
 trap cleanup EXIT
 
-git clone --depth 1 "https://github.com/rckukaswal/qa-maven-generator-cloudflare.git" "$TEMP_DIR" </dev/null
-
-echo ""
-echo "✅ Scripts downloaded successfully"
-echo ""
+if git clone --depth 1 -q \
+    "https://github.com/rckukaswal/qa-maven-generator-cloudflare.git" \
+    "$TEMP_DIR" >/dev/null 2>&1 </dev/null; then
+    echo ""
+    echo "✅ Scripts downloaded successfully"
+    echo ""
+else
+    echo ""
+    echo "❌ Failed to download scripts from GitHub"
+    exit 1
+fi
 
 bash "$TEMP_DIR/bash/scripts/main.sh"
