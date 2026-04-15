@@ -42,15 +42,9 @@ select_option() {
     local key
     local lines=${#options[@]}
 
-    # Colors
     local CYAN='\033[0;36m'
     local BOLD='\033[1m'
     local RESET='\033[0m'
-
-    printf "%s\n" "$prompt" >&2
-    for i in "${!options[@]}"; do
-        printf "  %s\n" "${options[$i]}" >&2
-    done
 
     while true; do
         for ((i=0; i<lines+1; i++)); do
@@ -89,4 +83,3 @@ select_option() {
         esac
     done
 }
-
