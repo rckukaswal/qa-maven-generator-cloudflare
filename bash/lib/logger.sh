@@ -6,7 +6,6 @@ GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
 CYAN='\033[0;36m'
-MAGENTA='\033[0;35m'
 WHITE='\033[1;37m'
 DIM='\033[2m'
 BOLD='\033[1m'
@@ -15,8 +14,8 @@ RESET='\033[0m'
 # Symbols
 TICK="✔"
 CROSS="✖"
-ARROW="➜"
-INFO="ℹ"
+ARROW="▶"
+INFO="➜"
 WARN="⚠"
 DOT="•"
 
@@ -39,8 +38,8 @@ log_error() {
 
 log_step() {
     echo ""
-    echo -e "  ${BOLD}${BLUE}${ARROW}  $1${RESET}"
-    echo -e "  ${DIM}$(printf '─%.0s' {1..40})${RESET}"
+    echo -e "  ${BOLD}${BLUE}${ARROW}  ${WHITE}$1${RESET}"
+    echo -e "  ${DIM}$(printf '─%.0s' {1..36})${RESET}"
 }
 
 log_dim() {
