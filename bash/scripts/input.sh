@@ -64,15 +64,14 @@ collect_user_input() {
 # ----------- SUMMARY -----------
 log_step "Selected Configuration"
 
-echo "  ┌──────────────────────────────────────────────┐"
-printf "  │ %-14s : %-29s │\n" "Level" "$LEVEL"
-printf "  │ %-14s : %-29s │\n" "Base URL" "$TEST_URL"
-printf "  │ %-14s : %-29s │\n" "Project" "$project_name"
-printf "  │ %-14s : %-29s │\n" "Group ID" "$group_id"
-printf "  │ %-14s : %-29s │\n" "Artifact" "$artifact_id"
-printf "  │ %-14s : %-29s │\n" "Base Package" "$package_name"
-echo "  └──────────────────────────────────────────────┘"
-echo ""
+echo "  ┌──────────────────────────────────────────┐"
+printf "  │ %-13s : %-28s │\n" "Level" "$LEVEL"
+printf "  │ %-13s : %-28s │\n" "Base URL" "$TEST_URL"
+printf "  │ %-13s : %-28s │\n" "Project" "$project_name"
+printf "  │ %-13s : %-28s │\n" "Group ID" "$group_id"
+printf "  │ %-13s : %-28s │\n" "Artifact" "$artifact_id"
+printf "  │ %-13s : %-28s │\n" "Base Package" "$package_name"
+echo "  └──────────────────────────────────────────┘"
     # ----------- CONFIRM -----------
     confirm_prompt "Proceed with generation?"
 }
