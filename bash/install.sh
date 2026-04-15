@@ -3,17 +3,33 @@ set -e
 
 CACHE_DIR="$HOME/.mvngen"
 REPO_URL="https://github.com/rckukaswal/qa-maven-generator-cloudflare.git"
+MAIN_SCRIPT="$CACHE_DIR/bash/scripts/main.sh"
 
-if [ ! -d "$CACHE_DIR" ]; then
+echo ""
+echo "┌──────────────────────────────────────────────┐"
+echo "│           Maven Project Generator            │"
+echo "│           Developed by RC Kukaswal           │"
+echo "└──────────────────────────────────────────────┘"
+echo ""
+
+# First-time install
+if [ ! -d "$CACHE_DIR/.git" ]; then
     echo "⏳ First-time setup..."
-    git clone --depth 1 -q "$REPO_URL" "$CACHE_DIR" >/dev/null 2>&1
-    echo "✅ Installed successfully"
 
-    if ! grep -q "alias mvngen=" "$HOME/.bashrc"; then
-        echo "alias mvngen='bash \$HOME/.mvngen/bash/install.sh'" >> "$HOME/.bashrc"
-        echo "✅ Alias 'mvngen' added"
-        echo "ℹ Run: source ~/.bashrc"
+    if git clone --depth 1 -q "$REPO_URL" "$CACHE_DIR" >/dev/null 2>&1; then
+        echo "✅ Installed successfully"
+
+        # Add alias only once
+        if ! grep -q "alias mvngen=" "$HOME/.bashrc"; then
+            echo "alias mvngen='bash \$HOME/.mvngen/bash/install.sh'" >> "$HOME/.bashrc"
+            echo "✅ Alias 'mvngen' added"
+            echo "ℹ Run: source ~/.bashrc"
+        fi
+    else
+        echo "❌ Installation failed. Check internet connection."
+        exit 1
     fi
+
 else
     echo "⏳ Checking for updates..."
 
@@ -25,4 +41,10 @@ else
     fi
 fi
 
-bash "$CACHE_DIR/bash/install.sh"
+# Run main script
+if [ -f "$MAIN_SCRIPT" ]; then
+    bash "$MAIN_SCRIPT"
+else
+    echo "❌ Main script not found: $MAIN_SCRIPT"
+    exit 1
+fi
