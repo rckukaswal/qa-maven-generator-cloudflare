@@ -33,7 +33,6 @@ confirm_prompt() {
         exit 0
     fi
 }
-
 select_option() {
     local prompt="$1"
     shift
@@ -49,24 +48,21 @@ select_option() {
     local DIM='\033[2m'
     local WHITE='\033[1;37m'
 
+    # heading only once
+    echo ""
+    echo -e "  ${BOLD}${BLUE}▶  ${WHITE}${prompt}${RESET}"
+    echo -e "  ${DIM}$(printf '─%.0s' {1..36})${RESET}"
+
+    # initial render
+    for i in "${!options[@]}"; do
+        if [[ $i -eq $selected ]]; then
+            printf "${CYAN}${BOLD}❯ %s${RESET}\n" "${options[$i]}" >&2
+        else
+            printf "  %s\n" "${options[$i]}" >&2
+        fi
+    done
+
     while true; do
-        # redraw full block
-        for ((i=0; i<lines+2; i++)); do
-            tput cuu1 >&2 2>/dev/null || true
-            tput el >&2
-        done
-
-        echo -e "  ${BOLD}${BLUE}▶  ${WHITE}${prompt}${RESET}" >&2
-        echo -e "  ${DIM}$(printf '─%.0s' {1..36})${RESET}" >&2
-
-        for i in "${!options[@]}"; do
-            if [[ $i -eq $selected ]]; then
-                printf "${CYAN}${BOLD}❯ %s${RESET}\n" "${options[$i]}" >&2
-            else
-                printf "  %s\n" "${options[$i]}" >&2
-            fi
-        done
-
         read -rsn1 key </dev/tty
 
         case "$key" in
@@ -82,6 +78,21 @@ select_option() {
                         [[ $selected -ge ${#options[@]} ]] && selected=0
                         ;;
                 esac
+
+                # move cursor only over option lines
+                for ((i=0; i<lines; i++)); do
+                    tput cuu1 >&2
+                done
+
+                # clear + redraw options
+                for i in "${!options[@]}"; do
+                    tput el >&2
+                    if [[ $i -eq $selected ]]; then
+                        printf "${CYAN}${BOLD}❯ %s${RESET}\n" "${options[$i]}" >&2
+                    else
+                        printf "  %s\n" "${options[$i]}" >&2
+                    fi
+                done
                 ;;
             "")
                 printf '%s\n' "${options[$selected]}"
