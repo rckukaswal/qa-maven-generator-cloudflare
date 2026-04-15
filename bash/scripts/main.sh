@@ -40,9 +40,10 @@ create_gitignore
 log_success "Project '$project_name' generated successfully!"
 
 # Environment Check
-check_java
-check_maven
-check_git
+ensure_java 
+ensure_maven 
+ensure_git 
+init_git_repo
 
 # Summary
 echo ""

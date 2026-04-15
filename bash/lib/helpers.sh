@@ -33,6 +33,19 @@ confirm_prompt() {
         exit 0
     fi
 }
+skip_prompt() {
+    local message="${1:-Skip this step?}"
+    local choice
+
+    read -p "$message [Y/n] : " choice </dev/tty
+    choice=${choice:-Y}
+
+    if [[ "$choice" =~ ^[Yy]$ ]]; then
+        return 0
+    fi
+
+    return 1
+}
 
 select_option() {
     local prompt="$1"
