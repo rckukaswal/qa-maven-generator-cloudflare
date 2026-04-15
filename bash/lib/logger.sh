@@ -37,7 +37,6 @@ log_error() {
 }
 
 log_step() {
-    echo ""
     echo -e "  ${BOLD}${BLUE}${ARROW}  ${WHITE}$1${RESET}"
   #  echo -e "  ${DIM}$(printf '─%.0s' {1..36})${RESET}"
 }
