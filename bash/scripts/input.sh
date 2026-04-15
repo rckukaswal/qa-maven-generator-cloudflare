@@ -61,16 +61,18 @@ collect_user_input() {
     export project_name group_id artifact_id
     export package_name package_path base_dir
 
-    # ----------- SUMMARY -----------
-    log_step "Selected Configuration"
-    echo "  Level        : $LEVEL"
-    echo "  Base URL     : $TEST_URL"
-    echo "  Project      : $project_name"
-    echo "  Group ID     : $group_id"
-    echo "  Artifact     : $artifact_id"
-    echo "  Base Package : $package_name"
-    echo ""
+# ----------- SUMMARY -----------
+log_step "Selected Configuration"
 
+echo "  ┌──────────────────────────────────────────────┐"
+printf "  │ %-14s : %-29s │\n" "Level" "$LEVEL"
+printf "  │ %-14s : %-29s │\n" "Base URL" "$TEST_URL"
+printf "  │ %-14s : %-29s │\n" "Project" "$project_name"
+printf "  │ %-14s : %-29s │\n" "Group ID" "$group_id"
+printf "  │ %-14s : %-29s │\n" "Artifact" "$artifact_id"
+printf "  │ %-14s : %-29s │\n" "Base Package" "$package_name"
+echo "  └──────────────────────────────────────────────┘"
+echo ""
     # ----------- CONFIRM -----------
     confirm_prompt "Proceed with generation?"
 }
