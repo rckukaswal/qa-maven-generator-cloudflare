@@ -28,4 +28,4 @@ else
     echo "ℹ Running cached local version"
 fi
 
-bash "$MAIN_SCRIPT"
+bash "$MAIN_SCRIPTq"
