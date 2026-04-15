@@ -45,37 +45,50 @@ select_option() {
     local CYAN='\033[0;36m'
     local BOLD='\033[1m'
     local RESET='\033[0m'
+    local BLUE='\033[0;34m'
+    local DIM='\033[2m'
+
+    echo ""
+    echo -e "  ${BOLD}${BLUE}▶  ${WHITE}${prompt}${RESET}"
+    echo -e "  ${DIM}$(printf '─%.0s' {1..36})${RESET}"
+
+    for i in "${!options[@]}"; do
+        if [[ $i -eq $selected ]]; then
+            printf "${CYAN}${BOLD}❯ %s${RESET}\n" "${options[$i]}" >&2
+        else
+            printf "  %s\n" "${options[$i]}" >&2
+        fi
+    done
 
     while true; do
-        tput sc >&2
-
-        printf "\n${BOLD}${BLUE}▶ %s${RESET}\n" "$prompt" >&2
-        printf "  ${DIM}$(printf '─%.0s' {1..36})${RESET}\n" >&2
-
-        for i in "${!options[@]}"; do
-            if [[ $i -eq $selected ]]; then
-                printf "${CYAN}${BOLD}❯ %s${RESET}\n" "${options[$i]}" >&2
-            else
-                printf "  %s\n" "${options[$i]}" >&2
-            fi
-        done
-
         read -rsn1 key </dev/tty
-
-        tput rc >&2
-        for ((i=0; i<lines+2; i++)); do
-            tput el >&2
-            tput cud1 >&2
-        done
-        tput rc >&2
 
         case "$key" in
             $'\x1b')
                 read -rsn2 key </dev/tty
                 case "$key" in
-                    "[A") ((selected--)); [[ $selected -lt 0 ]] && selected=$((${#options[@]} - 1));;
-                    "[B") ((selected++)); [[ $selected -ge ${#options[@]} ]] && selected=0;;
+                    "[A")
+                        ((selected--))
+                        [[ $selected -lt 0 ]] && selected=$((${#options[@]} - 1))
+                        ;;
+                    "[B")
+                        ((selected++))
+                        [[ $selected -ge ${#options[@]} ]] && selected=0
+                        ;;
                 esac
+
+                for ((i=0; i<lines; i++)); do
+                    tput cuu1 >&2
+                    tput el >&2
+                done
+
+                for i in "${!options[@]}"; do
+                    if [[ $i -eq $selected ]]; then
+                        printf "${CYAN}${BOLD}❯ %s${RESET}\n" "${options[$i]}" >&2
+                    else
+                        printf "  %s\n" "${options[$i]}" >&2
+                    fi
+                done
                 ;;
             "")
                 printf '%s\n' "${options[$selected]}"
