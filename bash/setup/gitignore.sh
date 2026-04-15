@@ -1,16 +1,18 @@
 #!/bin/bash
 
 create_gitignore() {
-    local project_dir="$1"
+    local gitignore_file="$base_dir/$project_name/.gitignore"
 
-    if [ -f "$project_dir/.gitignore" ]; then
+    mkdir -p "$(dirname "$gitignore_file")"
+
+    if [ -f "$gitignore_file" ]; then
         log_warning ".gitignore already exists. Skipping creation."
         return 0
     fi
 
     log_step "Creating .gitignore"
 
-    cat <<'EOL' > "$project_dir/.gitignore"
+    cat <<'EOL' > "$gitignore_file"
 # Maven build
 target/
 build/
@@ -74,5 +76,5 @@ mvnw.cmd
 node_modules/
 EOL
 
-    log_success ".gitignore created successfully."
+    log_success ".gitignore generated"
 }
