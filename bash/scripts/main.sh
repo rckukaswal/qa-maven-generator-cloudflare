@@ -39,7 +39,7 @@ create_gitignore
 
 log_success "Project '$project_name' generated successfully!"
 
-log_dim "Environment checks and setup in progress..."
+log_step "Environment checks and setup in progress..."
 # Environment Check
 ensure_java 
 ensure_maven 
@@ -48,9 +48,9 @@ init_git_repo
 
 # Summary
 log_step "Project Summary"
-
-printf "  %-14s : %s\n" "Level" "$LEVEL"
-printf "  %-14s : %s\n" "Project Dir" "$base_dir/$project_name"
+echo "  Project Name : $project_name"
+echo "  Project Dir  : $base_dir/$project_name"
+echo ""
 
 # Next Steps
 echo "Next Steps:"
