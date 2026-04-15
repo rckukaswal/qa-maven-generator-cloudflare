@@ -29,14 +29,6 @@ source "$BASE_DIR/setup/gitignore.sh"
 
 log_step "Starting Maven Project Generation"
 
-create_gitignore
-
-# Environment Check
-
-check_java
-check_maven
-check_git
-
 # Project Generation
 create_dir "$base_dir/$project_name"
 
@@ -45,6 +37,12 @@ build_framework "$base_dir/$project_name" "$package_path" "$LEVEL"
 generate_testng
 
 log_success "Project '$project_name' generated successfully!"
+# Environment Check
+create_gitignore
+check_java
+check_maven
+check_git
+
 
 echo ""
 echo "  Level        : $LEVEL"
